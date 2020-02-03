@@ -54,10 +54,12 @@ def py2rpy_pandasdataframe(obj):
         try:
             od[name] = conversion.converter.py2rpy(values)
         except Exception as e:
-            warnings.warn('Error while trying to convert '
-                          'the column "%s". Falling back to string conversion. '
-                          'The error is: %s - %s'
-                          % (name, str(type(e)), str(e)))
+            warnings.warn(
+                'Error while trying to convert '
+                'the column "%s". Falling back to string conversion. '
+                'The error is: %s - %s'
+                % (name, str(type(e)), str(e))
+            )
             od[name] = StrVector(values)
 
     return DataFrame(od)
@@ -141,7 +143,10 @@ def py2rpy_pandasseries(obj):
         if obj.dtype.kind == 'i':
             res = numpy2ri._numpyarray_to_r(
                 obj,
-                lambda values: IntVector([rinterface.NA_Integer if pandas.isna(elt) else elt for elt in values])
+                lambda values: IntVector(
+                    [rinterface.NA_Integer if pandas.isna(elt) else elt
+                     for elt in values]
+                )
             )
         elif obj.dtype.kind == 'u':
             res = numpy2ri.unsignednumpyint_to_rint(obj)
