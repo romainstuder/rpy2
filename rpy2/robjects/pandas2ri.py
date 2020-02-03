@@ -42,7 +42,7 @@ rpy2py = converter.rpy2py
 # numpy types for Pandas columns that require (even more) special handling
 dt_O_type = numpy.dtype('O')
 
-# pandas types for series of integer (optional missing) values.
+# pandas types for series of integer (optionally missing) values.
 integer_array_types = ('Int8', 'Int16', 'Int32', 'Int64', 'UInt8',
                        'UInt16', 'UInt32', 'UInt64')
 
@@ -52,12 +52,12 @@ def py2rpy_pandasdataframe(obj):
     od = OrderedDict()
     for name, values in obj.iteritems():
         try:
-            od[name] = conversion.py2rpy(values)
+            od[name] = conversion.converter.py2rpy(values)
         except Exception as e:
             warnings.warn('Error while trying to convert '
-                          'the column "%s". Fall back to string conversion. '
-                          'The error is: %s'
-                          % (name, str(e)))
+                          'the column "%s". Falling back to string conversion. '
+                          'The error is: %s - %s'
+                          % (name, str(type(e)), str(e)))
             od[name] = StrVector(values)
 
     return DataFrame(od)
@@ -139,7 +139,10 @@ def py2rpy_pandasseries(obj):
             raise(ValueError('Cannot pass numpy arrays with non-native byte'
                              ' orders at the moment.'))
         if obj.dtype.kind == 'i':
-            res = numpy2ri._numpyarray_to_r(obj, IntVector)
+            res = numpy2ri._numpyarray_to_r(
+                obj,
+                lambda values: IntVector([rinterface.NA_Integer if pandas.isna(elt) else elt for elt in values])
+            )
         elif obj.dtype.kind == 'u':
             res = numpy2ri.unsignednumpyint_to_rint(obj)
         else:
