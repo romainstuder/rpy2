@@ -1,4 +1,4 @@
-from . import openrlib
+from rpy2.rinterface_lib import openrlib
 
 
 def getrank(cdata):

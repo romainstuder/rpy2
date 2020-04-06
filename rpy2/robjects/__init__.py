@@ -22,9 +22,9 @@ from rpy2.robjects.environments import Environment
 from rpy2.robjects.methods import methods_env
 from rpy2.robjects.methods import RS4
 
-from . import conversion
-from . import vectors
-from . import language
+from rpy2.robjects import conversion
+from rpy2.robjects import vectors
+from rpy2.robjects import language
 
 from rpy2.rinterface import (Sexp,
                              SexpVector,

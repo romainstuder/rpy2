@@ -2,7 +2,7 @@ import abc
 from rpy2.robjects.robject import RObjectMixin
 import rpy2.rinterface as rinterface
 from rpy2.rinterface_lib import sexp
-from . import conversion
+from rpy2.robjects import conversion
 
 import rpy2.rlike.container as rlc
 

@@ -23,7 +23,7 @@ from rpy2.robjects import conversion
 from rpy2.robjects import help as rhelp
 from rpy2.robjects.language import eval
 
-from . import process_revents as revents
+from rpy2.interactive.process_revents import revents
 
 from os import linesep
 import re

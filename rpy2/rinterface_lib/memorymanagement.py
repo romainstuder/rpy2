@@ -2,7 +2,7 @@
 
 import contextlib
 import typing
-from . import openrlib
+from rpy2.rinterface_lib import openrlib
 
 
 # TODO: make it extend ContextManager and delete the function

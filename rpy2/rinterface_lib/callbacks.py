@@ -7,10 +7,10 @@ that makes it possible."""
 from contextlib import contextmanager
 import logging
 import typing
-from .openrlib import ffi
-from .openrlib import _rinterface_cffi
-from . import ffi_proxy
-from . import conversion
+from rpy2.rinterface_lib.openrlib import ffi
+from rpy2.rinterface_lib.openrlib import _rinterface_cffi
+from rpy2.rinterface_lib import ffi_proxy
+from rpy2.rinterface_lib import conversion
 
 logger = logging.getLogger(__name__)
 

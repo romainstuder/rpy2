@@ -6,11 +6,11 @@ import logging
 from typing import Tuple
 import typing
 import warnings
-from . import ffi_proxy
-from . import openrlib
-from . import conversion
-from . import embedded
-from . import memorymanagement
+from rpy2.rinterface_lib import ffi_proxy
+from rpy2.rinterface_lib import openrlib
+from rpy2.rinterface_lib import conversion
+from rpy2.rinterface_lib import embedded
+from rpy2.rinterface_lib import memorymanagement
 
 from _cffi_backend import FFI  # type: ignore
 

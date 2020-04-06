@@ -1,6 +1,6 @@
 # coding: utf-8
 import pytest
-from .. import utils
+from rpy2.tests import utils
 import rpy2.rinterface as rinterface
 
 rinterface.initr()

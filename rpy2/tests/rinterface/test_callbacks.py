@@ -1,4 +1,4 @@
-from .. import utils
+from rpy2.tests import utils
 import builtins
 import io
 import logging

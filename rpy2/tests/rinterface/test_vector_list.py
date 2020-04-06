@@ -1,5 +1,5 @@
 import pytest
-from .. import utils
+from rpy2.tests import utils
 import rpy2.rinterface as ri
 
 ri.initr()
