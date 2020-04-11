@@ -3,6 +3,7 @@
 # TODO: rename the module with a prefix _ to indicate that this should
 #   not be used outside of rpy2's own code
 
+import typing
 from typing import Callable
 from typing import Dict
 from typing import Type
@@ -131,7 +132,7 @@ def _cchar_to_str_with_maxlen(c, maxlen: int) -> str:
     return s
 
 
-def _str_to_charsxp(val: str):
+def _str_to_charsxp(val: typing.Optional[str]):
     rlib = openrlib.rlib
     if val is None:
         s = rlib.R_NaString

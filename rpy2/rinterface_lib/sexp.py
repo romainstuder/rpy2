@@ -435,9 +435,12 @@ class SexpEnvironment(Sexp):
                                            openrlib.rlib.TRUE)
             )
             n = openrlib.rlib.Rf_xlength(symbols)
-            res = []
+            res: typing.List[str] = []
             for i in range(n):
-                res.append(_rinterface._string_getitem(symbols, i))
+                s = _rinterface._string_getitem(symbols, i)
+                if s is None:
+                    raise ValueError('R returned a null symbol (R_NaString).')
+                res.append(s)
         for e in res:
             yield e
 
@@ -668,7 +671,7 @@ class StrSexpVector(SexpVector):
     def __getitem__(
             self,
             i: typing.Union[int, slice]
-    ) -> typing.Union['StrSexpVector', str, 'na_values.NA_Character']:
+    ) -> typing.Union['StrSexpVector', str, 'NACharacterType']:
         cdata = self.__sexp__._cdata
         if isinstance(i, int):
             i_c = _rinterface._python_index_to_c(cdata, i)
@@ -689,7 +692,7 @@ class StrSexpVector(SexpVector):
             self,
             i: typing.Union[int, slice],
             value: typing.Union[str, typing.Sequence[typing.Optional[str]],
-                                'StrSexpVector', 'na_values.NA_Character']
+                                'StrSexpVector', 'NACharacterType']
     ) -> None:
         cdata = self.__sexp__._cdata
         if isinstance(i, int):
@@ -705,6 +708,8 @@ class StrSexpVector(SexpVector):
                 val_cdata
             )
         elif isinstance(i, slice):
+            if isinstance(value, str) or value is na_values.NA_Character:
+                raise ValueError('Invalid assignment to a slice')
             for i_c, v in zip(range(*i.indices(len(self))), value):
                 if v is None:
                     v_cdata = openrlib.rlib.R_NaString

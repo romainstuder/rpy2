@@ -11,10 +11,9 @@ def _initr_win32(
         interactive: bool = True,
         _want_setcallbacks: bool = True,
         _c_stack_limit: int = _DEFAULT_C_STACK_LIMIT
-
 ) -> int:
-    embedded.rstart = ffi.new('Rstart')
-    rstart = embedded.rstart
+    rstart = ffi.new('Rstart')
+    rstart = rstart
     rstart.rhome = openrlib.rlib.get_R_HOME()
     rstart.home = openrlib.rlib.getRUser()
     rstart.CharacterMode = openrlib.rlib.LinkDLL
@@ -31,6 +30,7 @@ def _initr_win32(
     rstart.RestoreAction = openrlib.rlib.SA_RESTORE
     rstart.SaveAction = openrlib.rlib.SA_NOSAVE
 
+    embedded.rstart = rstart
     embedded.setinitialized()
 
     # TODO: still needed ?
