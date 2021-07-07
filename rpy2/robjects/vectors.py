@@ -414,13 +414,8 @@ class IntVector(Vector, IntSexpVector):
         super().__init__(obj)
         self._add_rops()
 
-    def repr_format_elt(self, elt, max_width=8):
-        max_width = int(max_width)
-        if elt == NA_Integer:
-            res = repr(NA_Integer)
-        else:
-            res = '{:,}'.format(elt)
-        return res
+    def repr_format_elt(self, elt, max_width: int = 8):
+        return repr(elt)
 
     def tabulate(self, nbins=None):
         """ Like the R function tabulate,
@@ -696,7 +691,7 @@ class ListVector(Vector, ListSexpVector):
             names.extend(
                 rnames
                 if rnames != rinterface.NULL
-                else '[no name]'*len(self)
+                else ['[no name]'] * len(self)
             )
         else:
             half_items = max_items // 2
@@ -1169,7 +1164,7 @@ class Matrix(Array):
             nu = min(tuple(self.dim))
         if nv is None:
             nv = min(tuple(self.dim))
-        res = self._svd(self, nu=nu, nv=nv, LINPACK=False)
+        res = self._svd(self, nu=nu, nv=nv)
         return conversion.rpy2py(res)
 
     def dot(self, m):

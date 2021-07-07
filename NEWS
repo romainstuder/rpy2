@@ -1,3 +1,81 @@
+Release 3.5.0
+=============
+
+Changes
+-------
+
+- Better customizablity of conversion rules from R objects with `typeof`
+  `INTSXP` (array of integers), `VECSEXP` (R list), and `LGLSXP` (array of
+  booleans) :mod:`pandas`.
+
+- The representation of R integer is no longer using a comma separator
+  for thousands (issue #797).
+
+- Requirement is now Python>=3.7. :mod:`rpy2` is no longer tested with Python 3.6.
+
+
+Release 3.4.5
+=============
+
+Changes
+-------
+
+- The deprecation warning when using :func:`rpy2.robjects.lib.grid.activate`
+  was missing (indirectly revealed through issue #804).
+
+- The named argument `LINPACK` in :meth:`rpy2.robjects.vectors.Matrix.svd`
+  is no longer present in R.
+
+Bugs fixed
+----------
+
+- SIGPIPE sent to a process running Python+rpy2 could result in a segfault.
+  This was caused by an incorrect setting of R signal handlers (issue #809).
+
+
+Release 3.4.4
+==============
+
+Changes
+-------
+
+- `RRuntimeError` exceptions raised while evaluating R code
+  an R magic (ipython/jupyter) are now propagated (issue #792).
+  
+
+
+Release 3.4.3
+=============
+
+New features
+------------
+
+- :mod:`rpy2.robjects.lib.ggplot2` maps more functions in the
+  R package (issue #767)
+
+- Utility function :func:`rpy2.robjects.lib.ggplot2.dict2rvec`
+  to convert a Python `Dict[str, str]` into an R named vector
+  of strings.
+
+Bugs fixed
+----------
+
+- Calling mod:`rpy2.situation` to report on the environment no longer
+  stops with an uncaught exception when no R home can be determined
+  (issue #774)
+
+- Converting pandas series with the older numpy types could result
+  in an error (issue #781)
+
+- Numpy converter was not properly turing R integer or float arrays
+  into their numpy equivalent (issue #785)
+
+- The HTML representation of R list without named element was
+  incorrect (issue #787)
+
+- Fix for when R is installed in a user home directory on Windows (PR #788)
+
+
 Release 3.4.2
 =============
 
